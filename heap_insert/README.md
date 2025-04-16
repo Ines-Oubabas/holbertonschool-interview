@@ -21,6 +21,7 @@ typedef struct binary_tree_s heap_t;
 binary_tree_t: Generic binary tree node.
 
 heap_t: Alias for a Max Binary Heap node.
+```
 
 ## 📁 File Structure
 
