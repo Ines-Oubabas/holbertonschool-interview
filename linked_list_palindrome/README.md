@@ -1,99 +1,93 @@
-linked_list_palindrome
-🔹 #include "lists.h" et #include <stdlib.h>
-#include "lists.h" : inclut le fichier d’en-tête avec la définition de listint_t (la structure de nœud de la liste).
+# Linked List Palindrome
 
-#include <stdlib.h> : permet d’utiliser NULL, malloc, free, etc.
+## Description
 
-🔸 Fonction reverse_list
-listint_t *reverse_list(listint_t *head)
-Cette fonction inverse une liste chaînée.
+This project focuses on determining whether a singly linked list is a palindrome.  
+It is part of the Holberton School interview preparation series.
 
-Étapes : prev commence à NULL
+---
 
-current traverse la liste
+## Requirements
 
-On sauve le next du nœud
+- Allowed editors: **vi**, **vim**, **emacs**
+- OS: **Ubuntu 14.04 LTS**
+- Compiler: **gcc 4.8.4** with flags: `-Wall -Werror -Wextra -pedantic`
+- Coding style: **Betty style** (`betty-style.pl` and `betty-doc.pl`)
+- No global variables allowed
+- Maximum of 5 functions per file
+- Header file: `lists.h` (must include all function prototypes and be guarded)
 
-On change le lien current->next = prev (inversion)
+---
 
-On avance dans la liste
+## Function Prototype
 
-À la fin, on retourne prev (nouvelle tête)
-
-Illustration :
-Avant :
-
-1 -> 2 -> 3 -> NULL
-Après :
-
-3 -> 2 -> 1 -> NULL
-🔸 Fonction is_palindrome
-int is_palindrome(listint_t **head)
-Cette fonction détermine si la liste est un palindrome.
-
-1. Cas simples
-if (!head || !(*head) || !(*head)->next)
-	return (1);
-Liste vide (NULL) ou 1 seul élément ⇒ palindrome par définition.
-
-2. Trouver le milieu
-slow = fast = *head;
-while (fast && fast->next)
-{
-	slow = slow->next;
-	fast = fast->next->next;
-}
-fast avance 2 fois plus vite.
-
-Quand fast atteint la fin, slow est au milieu.
-
-3. Gérer les listes impaires
-if (fast)
-	slow = slow->next;
-Si fast n’est pas NULL, la liste a un nombre impair d’éléments.
-
-On saute le nœud du milieu (inutile dans la comparaison).
-
-4. Inverser la deuxième moitié
-reversed = reverse_list(slow);
-second_half = reversed;
-On inverse la deuxième moitié de la liste (à partir de slow).
-
-5. Comparer les deux moitiés
-copy1 = *head;
-copy2 = reversed;
-while (copy2)
-{
-	if (copy1->n != copy2->n)
-	{
-		reverse_list(second_half); // Restaurer
-		return (0);
-	}
-	copy1 = copy1->next;
-	copy2 = copy2->next;
-}
-On compare chaque valeur dans la première moitié (copy1) avec la deuxième inversée (copy2).
-
-Si une différence est trouvée → pas un palindrome
-
-6. Restaurer la liste
-reverse_list(second_half);
 ```c
-On restaure l’ordre original pour ne pas modifier la liste (bonne pratique).
+int is_palindrome(listint_t **head);
+````
 
-### 7. Conclusion
+* **Return:**
+
+  * `1` if the linked list is a palindrome
+  * `0` if it is not
+* An empty list is considered a palindrome.
+
+---
+
+## Data Structures
+
 ```c
-return (1);
-Si tout est identique → c’est bien un palindrome !
+/**
+ * struct listint_s - singly linked list
+ * @n: integer
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
+ */
+typedef struct listint_s
+{
+    int n;
+    struct listint_s *next;
+} listint_t;
+```
 
-✅ Résumé visuel :
-Supposons :
+---
 
-Liste initiale : 1 → 2 → 3 → 2 → 1
-Milieu : 3
+## Compilation Example
 
-Deuxième moitié : 2 → 1 → inversée → 1 → 2
+```bash
+gcc -Wall -Werror -Wextra -pedantic 0-main.c linked_lists.c 0-is_palindrome.c -o palindrome
+./palindrome
+```
 
-Comparaison : 1==1, 2==2 ✅
+---
 
-Résultat : Palindrome
+## Example Output
+
+```
+1
+17
+972
+50
+98
+98
+50
+972
+17
+1
+Linked list is a palindrome
+```
+
+---
+
+## Files
+
+* `lists.h`: Header file with the struct and function prototypes.
+* `linked_lists.c`: Contains helper functions to manipulate the linked list.
+* `0-is_palindrome.c`: Function to check if a singly linked list is a palindrome.
+* `0-main.c`: Example main file to test the implementation (not required to be pushed).
+
+---
+
+## Author
+
+Holberton School Interview Preparation Project
