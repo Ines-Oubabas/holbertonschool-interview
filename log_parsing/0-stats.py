@@ -44,3 +44,4 @@ if __name__ == "__main__":
         raise
 
     print_stats(total_size, status_counts)
+
