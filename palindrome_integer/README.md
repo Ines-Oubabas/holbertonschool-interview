@@ -49,4 +49,3 @@ Example:
 Betty check:
 betty 0-is_palindrome.c palindrome.h
 Project created as part of Holberton School Interview Projects.
-EOF
