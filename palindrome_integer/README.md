@@ -20,15 +20,12 @@ Write a function that checks whether or not a given unsigned integer is a palind
 ### Prototype
 ```c
 int is_palindrome(unsigned long n);
+
 Return
 1 if n is a palindrome
-
 0 otherwise
 
 Example
-bash
-Copy
-Edit
 $ ./palindrome 121
 121 is a palindrome.
 
@@ -41,27 +38,15 @@ palindrome.h: The header file (with include guards and prototypes)
 
 ✅ Usage
 Compile:
-
-bash
-Copy
-Edit
 gcc -Wall -Wextra -Werror -pedantic -g3 -o palindrome 0-main.c 0-is_palindrome.c
+
 Run:
-
-bash
-Copy
-Edit
 ./palindrome <number>
+
 Example:
-
-bash
-Copy
-Edit
 ./palindrome 12321
-Betty check:
 
-bash
-Copy
-Edit
+Betty check:
 betty 0-is_palindrome.c palindrome.h
 Project created as part of Holberton School Interview Projects.
+EOF
