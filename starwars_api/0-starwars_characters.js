@@ -1,25 +1,37 @@
 #!/usr/bin/node
-const request = require('request');
+const https = require('https');
 
-const URL = 'https://swapi-api.hbtn.io/api/films/';
-request.get(URL + process.argv[2], async (error, response, body) => {
-  if (response.statusCode === 200 && error === null) {
-    const linkChars = JSON.parse(body).characters;
-    const linkCharsList = (chr) => {
-      const promise = new Promise((resolve, reject) => {
-        request.get(chr, (error, response, body) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(body);
-          }
+const movieId = process.argv[2];
+if (!movieId) {
+  console.error('Usage: ./0-starwars_characters.js <movie_id>');
+  process.exit(1);
+}
+
+const filmUrl = `https://swapi-api.hbtn.io/api/films/${movieId}/`;
+
+https.get(filmUrl, (res) => {
+  let data = '';
+
+  res.on('data', (chunk) => { data += chunk; });
+  res.on('end', async () => {
+    const film = JSON.parse(data);
+    const characters = film.characters;
+
+    for (const url of characters) {
+      await new Promise((resolve) => {
+        https.get(url, (res) => {
+          let characterData = '';
+          res.on('data', (chunk) => { characterData += chunk; });
+          res.on('end', () => {
+            const character = JSON.parse(characterData);
+            console.log(character.name);
+            resolve();
+          });
         });
       });
-      return promise;
-    };
-    for (let i = 0; i < linkChars.length; i++) {
-      const result = await linkCharsList(linkChars[i]);
-      console.log(JSON.parse(result).name);
     }
-  }
+  });
+}).on('error', (err) => {
+  console.error(`Error: ${err.message}`);
 });
+
