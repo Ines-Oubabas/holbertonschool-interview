@@ -15,9 +15,9 @@ void swap(int *a, int *b)
 /**
  * heapify - Maintains the max-heap property
  * @array: Array of integers
- * @size: Total size of the array (used for print_array)
- * @n: Current size of heap (shrinks after each sort step)
- * @i: Index of the current node
+ * @size: Total size of the array (for print_array)
+ * @n: Current size of heap
+ * @i: Current index in the heap
  */
 void heapify(int *array, size_t size, size_t n, size_t i)
 {
@@ -40,9 +40,9 @@ void heapify(int *array, size_t size, size_t n, size_t i)
 }
 
 /**
- * heap_sort - Sorts an array using heap sort algorithm
+ * heap_sort - Sorts an array using the Heap sort algorithm
  * @array: Array of integers
- * @size: Size of the array
+ * @size: Number of elements in array
  */
 void heap_sort(int *array, size_t size)
 {
@@ -61,3 +61,4 @@ void heap_sort(int *array, size_t size)
 		heapify(array, size, (size_t)i, 0);
 	}
 }
+
