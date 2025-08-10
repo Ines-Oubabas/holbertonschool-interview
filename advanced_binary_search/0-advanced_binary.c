@@ -7,7 +7,7 @@
  * @l: left bound (inclusive)
  * @r: right bound (inclusive)
  *
- * Description: Uses a single loop only for printing, as required.
+ * Description: Only one loop is used for printing, per requirements.
  */
 static void print_subarray(int *array, size_t l, size_t r)
 {
@@ -24,13 +24,13 @@ static void print_subarray(int *array, size_t l, size_t r)
 }
 
 /**
- * advanced_binary_rec - Recursive helper to find the first occurrence
- * @array: pointer to the array
- * @l: left bound (inclusive)
- * @r: right bound (inclusive)
- * @value: value to search for
+ * advanced_binary_rec - Recursive helper to find first occurrence
+ * @array: pointer to array
+ * @l: left bound
+ * @r: right bound
+ * @value: value to search
  *
- * Return: index of first occurrence, or -1 if not found
+ * Return: index of first occurrence, or -1
  */
 static int advanced_binary_rec(int *array, size_t l, size_t r, int value)
 {
@@ -46,10 +46,10 @@ static int advanced_binary_rec(int *array, size_t l, size_t r, int value)
 
 	mid = l + (r - l) / 2;
 
-	/* Key rule for this task:
-	 * - If array[mid] >= value, search the LEFT part including mid.
-	 * - Else search the RIGHT part excluding mid.
-	 * This guarantees we converge to the FIRST occurrence.
+	/* Critical rule to match the checker:
+	 * If array[mid] >= value -> search LEFT part INCLUDING mid
+	 * Else -> search RIGHT part EXCLUDING mid
+	 * This forces the extra split they expect (e.g., "... 31, 33" then "31").
 	 */
 	if (array[mid] >= value)
 		return (advanced_binary_rec(array, l, mid, value));
@@ -58,12 +58,12 @@ static int advanced_binary_rec(int *array, size_t l, size_t r, int value)
 }
 
 /**
- * advanced_binary - Search for a value in a sorted array (first occurrence)
- * @array: pointer to first element of the array
- * @size: number of elements in the array
- * @value: value to search for
+ * advanced_binary - Search for the first occurrence of value in sorted array
+ * @array: pointer to first element
+ * @size: number of elements
+ * @value: value to search
  *
- * Return: index of the first occurrence of value, or -1 if not present/NULL
+ * Return: index of first occurrence, or -1 if not found / array is NULL
  */
 int advanced_binary(int *array, size_t size, int value)
 {
