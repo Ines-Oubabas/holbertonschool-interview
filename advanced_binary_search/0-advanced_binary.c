@@ -1,74 +1,72 @@
-#include <stdio.h>
 #include "search_algos.h"
+#include <stdio.h>
 
 /**
- * print_subarray - Print the current subarray being searched
- * @array: pointer to the whole array
- * @l: left bound (inclusive)
- * @r: right bound (inclusive)
- *
- * Description: Only one loop is used for printing, per requirements.
+ * print_array - Prints the elements in the current search subarray
+ * @array: The array to print from
+ * @left: The starting index
+ * @right: The ending index
  */
-static void print_subarray(int *array, size_t l, size_t r)
+void print_array(int *array, int left, int right)
 {
-	size_t i;
+	int i;
 
 	printf("Searching in array: ");
-	for (i = l; i <= r; i++)
+	for (i = left; i <= right; i++)
 	{
 		printf("%d", array[i]);
-		if (i < r)
+		if (i < right)
 			printf(", ");
 	}
 	printf("\n");
 }
 
 /**
- * advanced_binary_rec - Recursive helper to find first occurrence
- * @array: pointer to array
- * @l: left bound
- * @r: right bound
- * @value: value to search
- *
- * Return: index of first occurrence, or -1
+ * recursive_search - Recursively searches for the first occurrence of a value
+ * @array: Pointer to the array
+ * @left: Left index
+ * @right: Right index
+ * @value: Value to search for
+ * Return: Index of the first occurrence, or -1
  */
-static int advanced_binary_rec(int *array, size_t l, size_t r, int value)
+int recursive_search(int *array, int left, int right, int value)
 {
-	size_t mid;
+	int mid;
 
-	if (l > r)
+	if (left > right)
 		return (-1);
 
-	print_subarray(array, l, r);
+	print_array(array, left, right);
 
-	if (l == r)
-		return (array[l] == value ? (int)l : -1);
+	mid = left + (right - left) / 2;
 
-	mid = l + (r - l) / 2;
+	if (array[mid] == value)
+	{
+		/* Check if first occurrence */
+		if (mid == left || array[mid - 1] != value)
+			return (mid);
+		/* Continue left INCLUDING mid to get correct display */
+		return (recursive_search(array, left, mid, value));
+	}
 
-	/* Critical rule to match the checker:
-	 * If array[mid] >= value -> search LEFT part INCLUDING mid
-	 * Else -> search RIGHT part EXCLUDING mid
-	 * This forces the extra split they expect (e.g., "... 31, 33" then "31").
-	 */
-	if (array[mid] >= value)
-		return (advanced_binary_rec(array, l, mid, value));
+	if (array[mid] < value)
+		return (recursive_search(array, mid + 1, right, value));
 
-	return (advanced_binary_rec(array, mid + 1, r, value));
+	/* array[mid] > value */
+	return (recursive_search(array, left, mid, value)); /* <-- NOT mid - 1 */
 }
 
 /**
- * advanced_binary - Search for the first occurrence of value in sorted array
- * @array: pointer to first element
- * @size: number of elements
- * @value: value to search
- *
- * Return: index of first occurrence, or -1 if not found / array is NULL
+ * advanced_binary - Searches for a value in a sorted array using recursion
+ * @array: Pointer to the first element
+ * @size: Number of elements
+ * @value: Value to search for
+ * Return: Index of the first occurrence, or -1
  */
 int advanced_binary(int *array, size_t size, int value)
 {
 	if (array == NULL || size == 0)
 		return (-1);
 
-	return (advanced_binary_rec(array, 0, size - 1, value));
+	return (recursive_search(array, 0, (int)size - 1, value));
 }
