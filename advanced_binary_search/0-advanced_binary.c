@@ -1,13 +1,13 @@
-#include "search_algos.h"
 #include <stdio.h>
+#include "search_algos.h"
 
 /**
- * print_array - Prints the elements in the current search subarray
+ * print_subarray - Prints the elements in the current search subarray
  * @array: The array to print from
  * @left: The starting index
  * @right: The ending index
  */
-void print_array(int *array, int left, int right)
+static void print_subarray(int *array, int left, int right)
 {
 	int i;
 
@@ -29,31 +29,28 @@ void print_array(int *array, int left, int right)
  * @value: Value to search for
  * Return: Index of the first occurrence, or -1
  */
-int recursive_search(int *array, int left, int right, int value)
+static int recursive_search(int *array, int left, int right, int value)
 {
 	int mid;
 
 	if (left > right)
 		return (-1);
 
-	print_array(array, left, right);
+	print_subarray(array, left, right);
 
 	mid = left + (right - left) / 2;
 
 	if (array[mid] == value)
 	{
-		/* Check if first occurrence */
 		if (mid == left || array[mid - 1] != value)
 			return (mid);
-		/* Continue left INCLUDING mid to get correct display */
 		return (recursive_search(array, left, mid, value));
 	}
 
 	if (array[mid] < value)
 		return (recursive_search(array, mid + 1, right, value));
 
-	/* array[mid] > value */
-	return (recursive_search(array, left, mid, value)); /* <-- NOT mid - 1 */
+	return (recursive_search(array, left, mid, value));
 }
 
 /**
