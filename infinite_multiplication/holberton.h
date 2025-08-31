@@ -10,3 +10,4 @@ void print_str(char *s);
 void multiply(char *num1, char *num2);
 
 #endif /* HOLBERTON_H */
+
