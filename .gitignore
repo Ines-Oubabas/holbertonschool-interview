@@ -1,0 +1,56 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+ENV/
+.env
+.python-version
+
+# Build / packaging
+build/
+dist/
+downloads/
+.eggs/
+*.egg-info/
+*.egg
+wheels/
+share/python-wheels/
+pip-wheel-metadata/
+MANIFEST
+
+# Tests / linters / caches
+.pytest_cache/
+.coverage*
+coverage.xml
+.hypothesis/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# IDE / éditeurs
+.vscode/
+*.code-workspace
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+__MACOSX/
