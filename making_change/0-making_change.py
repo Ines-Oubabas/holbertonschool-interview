@@ -12,6 +12,7 @@ Prototype: def makeChange(coins, total)
 - You can assume you have an infinite number of each denomination
 """
 
+
 def makeChange(coins, total):
     """
     Determine the minimal number of coins needed to reach `total`.
@@ -28,18 +29,14 @@ def makeChange(coins, total):
     if not coins:
         return -1
 
-    # Large sentinel (greater than any possible minimal coin count)
     sentinel = total + 1
     dp = [sentinel] * (total + 1)
     dp[0] = 0
 
-    # Unbounded knapsack / coin change (min coins) DP
     for c in coins:
         if c <= 0:
-            # Problem statement guarantees > 0, but be defensive
             continue
         for t in range(c, total + 1):
-            # If we can form (t - c), try taking one more coin of value c
             if dp[t - c] + 1 < dp[t]:
                 dp[t] = dp[t - c] + 1
 
