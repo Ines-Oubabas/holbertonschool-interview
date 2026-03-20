@@ -1,20 +1,20 @@
 #ifndef SORT_H
 #define SORT_H
 
-#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * print_array - Prints an array of integers
- * @array: The array to be printed
- * @size: Number of elements in @array
+ * print_array - Prints an array of integers.
+ * @array: the array to be printed.
+ * @size: number of elements in @array.
  */
 void print_array(const int *array, size_t size);
 
 /**
- * radix_sort - Sorts an array of integers in ascending order
- * using the Radix sort algorithm
- * @array: Array to sort
- * @size: Number of elements in the array
+ * radix_sort - Using radix sort algorithm.
+ * @array: the array to sort.
+ * @size: number of elements in @array.
  */
 void radix_sort(int *array, size_t size);
 
